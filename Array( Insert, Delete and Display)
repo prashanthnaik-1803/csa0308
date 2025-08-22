@@ -1,0 +1,34 @@
+#include <stdio.h>
+
+#define SIZE 100
+
+int main() {
+    int arr[SIZE] = {10, 20, 30, 40, 50};
+    int n = 5; 
+
+    // Display
+    printf("Array: ");
+    for (int i = 0; i < n; i++) printf("%d ", arr[i]);
+    printf("\n");
+
+    // Insert 25 at position 2
+    int pos = 2, value = 25;
+    for (int i = n; i > pos; i--) arr[i] = arr[i - 1];
+    arr[pos] = value;
+    n++;
+
+    printf("After Insertion: ");
+    for (int i = 0; i < n; i++) printf("%d ", arr[i]);
+    printf("\n");
+
+    // Delete element at position 3
+    pos = 3;
+    for (int i = pos; i < n - 1; i++) arr[i] = arr[i + 1];
+    n--;
+
+    printf("After Deletion: ");
+    for (int i = 0; i < n; i++) printf("%d ", arr[i]);
+    printf("\n");
+
+    return 0;
+}
