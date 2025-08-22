@@ -5,56 +5,35 @@ struct Node {
     int data;
     struct Node* next;
 };
-
 struct Node* head = NULL;
 
-// Insert at end
 void insert(int value) {
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    struct Node* newNode = malloc(sizeof(struct Node));
     newNode->data = value;
-    newNode->next = NULL;
-
-    if (head == NULL) {
-        head = newNode;
-        return;
-    }
-
-    struct Node* temp = head;
-    while (temp->next != NULL)
-        temp = temp->next;
-    temp->next = newNode;
+    newNode->next = head;
+    head = newNode;
 }
 
-// Delete first occurrence of value
 void delete(int value) {
     struct Node *temp = head, *prev = NULL;
-
-    if (temp != NULL && temp->data == value) {
+    if (temp && temp->data == value) {
         head = temp->next;
         free(temp);
         return;
     }
-
-    while (temp != NULL && temp->data != value) {
+    while (temp && temp->data != value) {
         prev = temp;
         temp = temp->next;
     }
-
-    if (temp == NULL) return; // not found
-
-    prev->next = temp->next;
-    free(temp);
+    if (temp) {
+        prev->next = temp->next;
+        free(temp);
+    }
 }
 
-// Display
 void display() {
     struct Node* temp = head;
-    if (temp == NULL) {
-        printf("List is empty\n");
-        return;
-    }
-    printf("Linked List: ");
-    while (temp != NULL) {
+    while (temp) {
         printf("%d -> ", temp->data);
         temp = temp->next;
     }
@@ -65,13 +44,10 @@ int main() {
     insert(10);
     insert(20);
     insert(30);
-    display();
+    display();       // Output: 30 -> 20 -> 10 -> NULL
 
     delete(20);
-    display();
-
-    insert(40);
-    display();
+    display();       // Output: 30 -> 10 -> NULL
 
     return 0;
 }
